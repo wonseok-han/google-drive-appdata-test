@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function POST() {
-    const redirectUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/login`;
-  const response = NextResponse.redirect(redirectUrl);
+  const response = NextResponse.json({ success: true });
 
   // 쿠키 만료시켜서 삭제
   response.cookies.set("access_token", "", {
