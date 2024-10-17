@@ -8,7 +8,7 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 export async function POST(req: NextRequest) {
-  const { key } = await req.json();
+  const { key, fileName } = await req.json();
 
   // 쿠키에서 액세스 토큰 가져오기
   const accessToken = req.cookies.get("access_token")?.value;
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
   try {
     // 기존 파일이 존재하는지 확인
     const listResponse = await drive.files.list({
-      q: "name='user-key.json' and parents in 'appDataFolder'",
+      q: `name='${fileName}' and parents in 'appDataFolder'`,
       spaces: "appDataFolder",
       fields: "files(id)",
     });
