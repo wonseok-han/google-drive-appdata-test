@@ -38,11 +38,37 @@ export async function POST(req: NextRequest) {
   };
 
   try {
-    await drive.files.create({
-      requestBody: fileMetadata,
-      media: media,
-      fields: "id",
+    // 기존 파일이 존재하는지 확인
+    const listResponse = await drive.files.list({
+      q: "name='user-key.json' and parents in 'appDataFolder'",
+      spaces: "appDataFolder",
+      fields: "files(id)",
     });
+
+    const files = listResponse.data.files;
+    if (files && files.length > 0) {
+      // 파일이 이미 존재하면 해당 파일을 덮어쓰기
+      const fileId = files[0].id;
+
+      if (!fileId) {
+        return NextResponse.json({ error: "Invalid file ID" }, { status: 400 });
+      }
+
+      drive.files.update({
+        fileId: fileId,
+        media: media,
+        requestBody: {
+          name: "user-key.json",
+        },
+      });
+    } else {
+      // 파일이 존재하지 않으면 새로 생성
+      await drive.files.create({
+        requestBody: fileMetadata,
+        media: media,
+        fields: "id",
+      });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
