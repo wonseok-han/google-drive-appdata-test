@@ -10,6 +10,8 @@ const oauth2Client = new google.auth.OAuth2(
 export async function GET(req: NextRequest) {
   // 쿠키에서 액세스 토큰 가져오기
   const accessToken = req.cookies.get("access_token")?.value;
+  const { searchParams } = new URL(req.url);
+  const fileName = searchParams.get("fileName");
 
   if (!accessToken) {
     return NextResponse.json(
@@ -27,7 +29,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const response = await drive.files.list({
-      q: "name='user-key.json' and parents in 'appDataFolder'",
+      q: `name='${fileName}' and parents in 'appDataFolder'`,
       spaces: "appDataFolder", // 추가된 부분
       fields: "files(id, name)",
     });

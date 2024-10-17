@@ -52,14 +52,14 @@ export default function Main() {
   const handleStore = async () => {
     if (!privateKey) return;
 
-    setIsLoading(true);
-
     try {
       const fileName = prompt(
-        "Enter the file name to delete:",
+        "Enter the file name to save:",
         DEFAULT_FILE_NAME
       ); // 사용자가 파일 이름을 입력하게 함
       if (!fileName) return;
+
+      setIsLoading(true);
 
       const response = await fetch("/api/drive/save-data", {
         method: "POST",
@@ -82,12 +82,23 @@ export default function Main() {
   /* FIXME: File List가 있으므로 Read 주석처리 */
   // const handleRead = async () => {
   //   try {
-  //     const response = await fetch("/api/drive/read-data", {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
+  //     const fileName = prompt(
+  //       "Enter the file name to read:",
+  //       DEFAULT_FILE_NAME
+  //     ); // 사용자가 파일 이름을 입력하게 함
+  //     if (!fileName) return;
+
+  //     setIsLoading(true);
+
+  //     const response = await fetch(
+  //       `/api/drive/read-data?fileName=${fileName}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
 
   //     if (response.ok) {
   //       alert("키 읽어오기 성공!");
@@ -101,11 +112,20 @@ export default function Main() {
 
   const handleDownload = async () => {
     try {
+      const fileName = prompt(
+        "Enter the file name to download:",
+        DEFAULT_FILE_NAME
+      ); // 사용자가 파일 이름을 입력하게 함
+      if (!fileName) return;
+
       setIsLoading(true);
 
-      const response = await fetch("/api/drive/download-file", {
-        method: "GET",
-      });
+      const response = await fetch(
+        `/api/drive/download-file?fileName=${fileName}`,
+        {
+          method: "GET",
+        }
+      );
 
       if (response.ok) {
         const blob = await response.blob();
@@ -173,7 +193,7 @@ export default function Main() {
   const handleSearch = async () => {
     try {
       const fileName = prompt(
-        "Enter the file name to delete:",
+        "Enter the file name to search:",
         DEFAULT_FILE_NAME
       ); // 사용자가 파일 이름을 입력하게 함
       if (!fileName) return;
