@@ -31,8 +31,8 @@ export default function RootLayout({
         <header className="px-4 py-3 w-full flex-none flex justify-center font-black text-3xl">
           Google Drive AppData Test
         </header>
-        <main className="w-full flex-1 flex flex-col">{children}</main>
-        <footer className="px-4 py-3 w-full flex-none bg-gray-400 flex justify-center">
+        <main className="w-full">{children}</main>
+        <footer className="px-4 py-3 w-full bg-gray-400 flex justify-center flex-1">
           © {new Date().getFullYear()}{" "}
           {`wonseok-han's Google Drive AppData Test`}
         </footer>

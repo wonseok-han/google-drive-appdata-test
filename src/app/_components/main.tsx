@@ -114,7 +114,7 @@ export default function Main() {
 
   return (
     <div>
-      <div className="flex gap-2">
+      <div className="grid grid-flow-row gap-2 lg:flex">
         <button
           className="bg-gray-300 p-2 rounded-lg font-semibold"
           onClick={handleGenerate}
@@ -149,7 +149,7 @@ export default function Main() {
       <table className="my-4 border-collapse w-full">
         <tbody>
           <tr>
-            <th className="text-left p-2 bg-slate-200 border-gray-600 border-[1px] min-w-fit">
+            <th className="text-left p-2 bg-slate-200 border-gray-600 border-[1px]">
               privateKey
             </th>
             <td className="p-2 border-gray-600 border-[1px] break-all overflow-hidden">
@@ -165,7 +165,7 @@ export default function Main() {
             </td>
           </tr>
           <tr>
-            <th className="text-left p-2 bg-slate-200 border-gray-600 border-[1px] ">
+            <th className="text-left p-2 bg-slate-200 border-gray-600 border-[1px]">
               readPrivateKey
             </th>
             <td className="p-2 border-gray-600 border-[1px] break-all overflow-hidden">
