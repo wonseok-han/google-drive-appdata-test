@@ -3,7 +3,6 @@
 import WebpackObfuscator from "webpack-obfuscator";
 
 const nextConfig = {
-  productionBrowserSourceMaps: false,
   webpack: (config, { isServer }) => {
     // 클라이언트 사이드 코드에만 난독화를 적용하도록 설정
     if (!isServer) {
