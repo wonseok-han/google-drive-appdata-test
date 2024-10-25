@@ -221,30 +221,9 @@ export default function ServerSideMain() {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      setIsLoading(true);
-
-      // 서버에 로그아웃 요청을 보내서 쿠키 제거
-      const response = await fetch("/api/auth/logout", {
-        method: "POST",
-      });
-
-      setIsLoading(false);
-
-      if (response.ok) {
-        // 쿠키가 삭제되면 로그인 페이지로 리디렉션
-        window.location.href = "/login";
-      } else {
-        console.error("Failed to logout:", await response.json());
-      }
-    } catch (error) {
-      console.error("Error during logout:", error);
-    }
-  };
-
   return (
     <div>
+      <h1 className="text-3xl font-bold mb-3">Server Side</h1>
       <div className="grid grid-flow-row gap-2 lg:flex">
         <button
           className="bg-gray-300 p-2 rounded-lg font-semibold"
@@ -282,12 +261,6 @@ export default function ServerSideMain() {
           onClick={handleSearch}
         >
           Search Files
-        </button>
-        <button
-          className="bg-red-400 p-2 rounded-lg font-semibold"
-          onClick={handleLogout}
-        >
-          Logout
         </button>
       </div>
       <table className="my-4 border-collapse w-full">

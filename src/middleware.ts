@@ -1,12 +1,16 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+const WHITE_LIST = ["/auth/callback"];
+
 export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("access_token");
+  const pathname = request.nextUrl.pathname;
 
   console.log("쿠키::", accessToken);
+  console.log("Path::", pathname);
 
-  if (request.nextUrl.pathname.startsWith("/")) {
+  if (!WHITE_LIST.includes(pathname) && pathname.startsWith("/")) {
     if (!accessToken) {
       return NextResponse.rewrite(new URL("/login", request.url));
     }
