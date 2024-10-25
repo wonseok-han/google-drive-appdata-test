@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-import WebpackObfuscator from "webpack-obfuscator";
+// import WebpackObfuscator from "webpack-obfuscator";
 
 const nextConfig = {
   webpack: (config, { isServer }) => {
@@ -17,23 +17,23 @@ const nextConfig = {
       //       },
       //     },
       //   };
-      config.plugins.push(
-        new WebpackObfuscator(
-          {
-            rotateStringArray: true, // 난독화 옵션 설정
-            stringArray: true,
-            stringArrayThreshold: 0.75,
-          },
-          [
-            // "static/**/*.js",
-            "**/node_modules/**", // 외부 라이브러리 제외
-            // "**/*.runtime.js", // runtime 관련 파일 제외
-            // "static/**/app/*.js",
-            // "static/**/app-pages-internals.js",
-            // "static/**/webpack.js*",
-          ] // 특정 파일들을 제외하거나 타겟으로 설정
-        )
-      );
+      // config.plugins.push(
+      //   new WebpackObfuscator(
+      //     {
+      //       rotateStringArray: true, // 난독화 옵션 설정
+      //       stringArray: true,
+      //       stringArrayThreshold: 0.75,
+      //     },
+      //     [
+      //       // "static/**/*.js",
+      //       "**/node_modules/**", // 외부 라이브러리 제외
+      //       // "**/*.runtime.js", // runtime 관련 파일 제외
+      //       // "static/**/app/*.js",
+      //       // "static/**/app-pages-internals.js",
+      //       // "static/**/webpack.js*",
+      //     ] // 특정 파일들을 제외하거나 타겟으로 설정
+      //   )
+      // );
     }
 
     return config;
