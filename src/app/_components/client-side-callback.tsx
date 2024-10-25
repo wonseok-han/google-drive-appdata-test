@@ -23,6 +23,8 @@ export default function ClientSideCallback() {
         const redirectUri = "http://localhost:3000/auth/callback";
 
         if (!clientId) return;
+        if (!code) throw new Error("Authorization code is missing.");
+
         console.log(clientId);
 
         // 구글 토큰 요청
@@ -31,13 +33,13 @@ export default function ClientSideCallback() {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: {
+          body: new URLSearchParams({
             client_id: clientId,
             code: code,
             grant_type: "authorization_code",
             redirect_uri: redirectUri,
             code_verifier: codeVerifier,
-          },
+          }).toString(),
         });
 
         const data = await response.json();
